@@ -13,7 +13,7 @@ Open a Text Editor: Open a text editor like Notepad, VSCode, or PyCharm.
 Copy the Script: Copy the provided Python script into your text editor.
 
 Copy code:
-the script from sock 
+the script from mysock.py
 
 Save the Script: Save the file with a .py extension, for example, parse_spans.py.
 
