@@ -45,9 +45,9 @@ http://py4e-data.dr-chuck.net/comments_1816616.html
 Review the Output: The script will fetch the HTML content from the URL, parse it, extract numbers from <span> tags, sum them, and print the result. If there are any issues with fetching or processing the HTML, the script will print error messages.
 
 Example of Running the Script
-Assuming you run the script with the URL http://example.com, the script will:
+Assuming you run the script with the URL http://py4e-data.dr-chuck.net/comments_1816616.html, the script will:
 
-Fetch and parse the HTML from http://example.com.
+Fetch and parse the HTML from http://py4e-data.dr-chuck.net/comments_1816616.html.
 Look for <span> tags in the HTML.
 Attempt to convert their contents to integers.
 Sum these integers and print the result.
