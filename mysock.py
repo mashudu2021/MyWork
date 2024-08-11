@@ -1,21 +1,42 @@
-import socket
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import ssl
 
-mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect(('data.pr4e.org', 80))
+# Ignore SSL certificate errors (not recommended for production)
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
-cmd = 'GET http://data.pr4e.org/intro-short.txt HTTP/1.0\r\n\r\n'.encode()
+# Input URL
+url = input('Enter - ')
 
-# Send the command
-mysock.send(cmd)
+try:
+    # Fetch and read HTML content
+    html = urlopen(url, context=ctx).read()
+except Exception as e:
+    print(f"Error fetching URL: {e}")
+    exit()
 
-while True:
-    # Receive up to 512 characters
-    data = mysock.recv(512)
+# Parse HTML
+soup = BeautifulSoup(html, "html.parser")
 
-    if len(data) < 1:
-        break
+# Retrieve all <span> tags
+tags = soup('span')
+resultsum = 0
 
-    # Decode the data
-    print(data.decode(), end='')
+for tag in tags:
+    try:
+        # Extract and convert content to integer
+        number = tag.get_text(strip=True)
+        number = int(number)
+        resultsum += number
+    except ValueError:
+        # Skip non-numeric content
+        print(f"Skipping non-numeric content: {tag.get_text(strip=True)}")
+    except Exception as e:
+        # Handle unexpected errors
+        print(f"Error processing tag: {e}")
 
-mysock.close()
+# Print the result
+print(resultsum)
+
